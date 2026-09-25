@@ -1,0 +1,10 @@
+{
+  "name": "Tokyo & Kansai 9-Day Travel Guide Assistant",
+  "description": "Comprehensive personal travel assistant for a 9-day journey across Tokyo, Hakone, Mt Fuji, Osaka, and Kyoto with day-by-day itineraries, interactive 3D flight passes, route navigation, packing checklists, Google reviewer highlights, etiquette tips, and Japanese language hacks.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

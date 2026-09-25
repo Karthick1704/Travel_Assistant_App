@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Design tokens — "Ink & Vermilion"
+   Deep ink navy shell, paper-white cards, vermilion accent,
+   Cathay jade for flight surfaces, gold for time/countdown.
+   ========================================================= */
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-japanese: "Noto Sans JP", "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink-950: #060b16;
+  --color-ink-900: #0b1324;
+  --color-ink-800: #111c33;
+  --color-ink-700: #1b2a48;
+  --color-ink-600: #27395d;
+
+  --color-paper-50: #fbfaf7;
+  --color-paper-100: #f4f2ec;
+  --color-paper-200: #e9e5da;
+
+  --color-vermilion-50: #fff1f0;
+  --color-vermilion-100: #ffe0dd;
+  --color-vermilion-200: #ffc4bf;
+  --color-vermilion-400: #ff6b5e;
+  --color-vermilion-500: #e63946;
+  --color-vermilion-600: #c92b39;
+  --color-vermilion-700: #a8202d;
+
+  --color-jade-50: #ecf8f6;
+  --color-jade-100: #cdeee8;
+  --color-jade-300: #6fcbbd;
+  --color-jade-400: #3aa99a;
+  --color-jade-500: #1f8a7d;
+  --color-jade-600: #006564;
+  --color-jade-700: #024d4c;
+
+  --color-gold-300: #fde68a;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 20px 48px -20px rgb(15 23 42 / 0.25);
+  --shadow-glow-vermilion: 0 10px 30px -10px rgb(230 57 70 / 0.55);
+  --shadow-glow-jade: 0 10px 30px -10px rgb(0 101 100 / 0.55);
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-dash: dash 3s linear infinite;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-blink: blink 1.6s steps(2, start) infinite;
+  --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  --animate-drift-x: drift-x 60s linear infinite;
+  --animate-drift-x-slow: drift-x 120s linear infinite;
+  --animate-bob: bob 9s ease-in-out infinite;
+  --animate-glint: glint 7s ease-in-out infinite;
+  --animate-twinkle: twinkle 3.6s ease-in-out infinite;
+  --animate-mist: mist 40s ease-in-out infinite alternate;
+  --animate-petal: petal 14s linear infinite;
+  --animate-fly-over: fly-over 70s linear infinite;
+  --animate-moon-breathe: moon-breathe 12s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(0.6deg); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: -40; }
+  }
+  @keyframes aurora {
+    0% { transform: translate3d(-8%, -6%, 0) scale(1); }
+    50% { transform: translate3d(6%, 4%, 0) scale(1.15); }
+    100% { transform: translate3d(-4%, 8%, 0) scale(0.95); }
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  /* Japan scene */
+  @keyframes drift-x {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes glint {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 0.9; transform: scale(1.15); }
+  }
+  @keyframes mist {
+    0% { transform: translateX(-4%) scaleY(1); opacity: 0.55; }
+    100% { transform: translateX(4%) scaleY(1.08); opacity: 0.85; }
+  }
+  @keyframes petal {
+    0% { transform: translate3d(0, -8vh, 0) rotate(0deg); opacity: 0; }
+    8% { opacity: 0.9; }
+    100% { transform: translate3d(var(--petal-drift, 14vw), 108vh, 0) rotate(var(--petal-spin, 540deg)); opacity: 0; }
+  }
+  @keyframes fly-over {
+    0% { transform: translate(-30vw, 34vh) rotate(77deg) scale(0.42); opacity: 0; }
+    6% { opacity: 1; }
+    94% { opacity: 1; }
+    100% { transform: translate(112vw, -6vh) rotate(77deg) scale(0.62); opacity: 0; }
+  }
+  @keyframes moon-breathe {
+    0%, 100% { filter: drop-shadow(0 0 28px rgba(253, 230, 138, 0.35)); }
+    50% { filter: drop-shadow(0 0 54px rgba(253, 230, 138, 0.6)); }
+  }
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--color-paper-50);
+  color: var(--color-slate-800);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(230 57 70 / 0.18);
+  color: var(--color-vermilion-700);
+}
+
+/* ---------- Utilities ---------- */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@utility perspective-1200 {
+  perspective: 1200px;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@utility backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Frosted glass panel on dark backgrounds */
+@utility glass-dark {
+  background: rgb(11 19 36 / 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 10px 40px -20px rgb(0 0 0 / 0.6);
+}
+
+/* Frosted glass panel on light backgrounds */
+@utility glass-light {
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.7);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), var(--shadow-soft);
+}
+
+/* Paper card (default content surface) */
+@utility card {
+  background: #ffffff;
+  border: 1px solid rgb(226 232 240 / 0.9);
+  border-radius: var(--radius-4xl);
+  box-shadow: var(--shadow-soft);
+}
+
+@utility card-hover {
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    border-color: rgb(203 213 225 / 0.9);
+  }
+}
+
+/* Subtle film grain for hero/dark surfaces */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    border-radius: inherit;
+  }
+}
+
+/* Dotted grid backdrop */
+@utility dot-grid {
+  background-image: radial-gradient(rgb(148 163 184 / 0.25) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Shimmering text gradient */
+@utility text-shimmer {
+  background: linear-gradient(90deg, #fff 0%, #fde68a 35%, #fff 50%, #fde68a 65%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Aged-gold shimmer for royal headlines */
+@utility text-shimmer-gold {
+  background: linear-gradient(100deg, #a9803a 0%, #f3dc9c 30%, #fff6d6 48%, #d9b26a 62%, #a9803a 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+  filter: drop-shadow(0 2px 18px rgba(217, 178, 106, 0.25));
+}
+
+/* Boarding pass perforation edge */
+@utility perforated-y {
+  background-image: radial-gradient(circle at 50% 50%, transparent 5px, currentColor 5.5px);
+  background-size: 2px 14px;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+/* ---------- Legacy "animate-in" utilities used by existing modals ---------- */
+@keyframes ui-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ui-slide-in-from-top { from { transform: translateY(-8px); } to { transform: translateY(0); } }
+@keyframes ui-slide-in-from-bottom { from { transform: translateY(12px); } to { transform: translateY(0); } }
+@keyframes ui-zoom-in { from { transform: scale(0.96); } to { transform: scale(1); } }
+
+.animate-in {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+.animate-in.fade-in { animation-name: ui-fade-in; }
+.animate-in.slide-in-from-top-2 { animation-name: ui-fade-in, ui-slide-in-from-top; }
+.animate-in.slide-in-from-bottom-4 { animation-name: ui-fade-in, ui-slide-in-from-bottom; }
+.animate-in.zoom-in-95 { animation-name: ui-fade-in, ui-zoom-in; }
+.animate-in.duration-200 { animation-duration: 200ms; }
+.animate-in.duration-300 { animation-duration: 300ms; }
+
+/* Reduced motion: keep it calm */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
